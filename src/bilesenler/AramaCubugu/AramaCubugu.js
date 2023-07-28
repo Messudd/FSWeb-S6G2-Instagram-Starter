@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import "./AramaCubugu.css";
 
-const AramaCubugu = (props) => {
+const AramaCubugu = () => {
   return (
     <div className="search-bar-wrapper">
       <div className="social">

@@ -5,18 +5,46 @@
 */
 
 // State hook u import edin
-import React from "react";
+import React , {useState ,useEffect} from "react";
+import AramaCubugu from "./bilesenler/AramaCubugu/AramaCubugu";
+import sahteVeri from "./sahte-veri";
+import Gonderiler from './bilesenler/Gonderiler/Gonderiler';
 
 // Gönderiler (çoğul!) ve AramaÇubuğu bileşenlerini import edin, çünkü bunlar App bileşeni içinde kullanılacak
 // sahteVeri'yi import edin
 import "./App.css";
 
 const App = () => {
+  const [gonderiler , setGonderiler] = useState (sahteVeri);
+  const [likeSayisi , setLikeSayisi] = useState();
+
+  useEffect(()=> {
+    console.log('Gönderiler : ', gonderiler);
+  },[])
+
   // Gönderi nesneleri dizisini tutmak için "gonderiler" adlı bir state oluşturun, **sahteVeri'yi yükleyin**.
   // Artık sahteVeri'ye ihtiyacınız olmayacak.
   // Arama çubuğunun çalışması için , arama kriterini tutacak başka bir state'e ihtiyacımız olacak.
+const gonderiyiBegen = (gonderiID) => {
 
-  const gonderiyiBegen = (gonderiID) => {
+    const newData = [...gonderiler];
+
+    newData.map((post) => (post.id === gonderiID) ?
+  
+    setLikeSayisi((post.likes + 1))
+    :
+    null
+    )
+    
+    setGonderiler(newData);
+    console.log(`${gonderiID} ID'li postun likes sayısı : `, likeSayisi);
+
+};
+  
+
+    
+   
+
     /*
       Bu fonksiyon, belirli bir id ile gönderinin beğeni sayısını bir artırma amacına hizmet eder.
 
@@ -28,14 +56,14 @@ const App = () => {
         - gönderinin idsi "gonderiID" ile eşleşirse, istenen değerlerle yeni bir gönderi nesnesi döndürün.
         - aksi takdirde, sadece gönderi nesnesini değiştirmeden döndürün.
      */
-  };
+
 
   return (
     <div className="App">
-      App Çalışıyor
-      {/* Yukarıdaki metni projeye başladığınızda silin*/}
-      {/* AramaÇubuğu ve Gönderiler'i render etmesi için buraya ekleyin */}
-      {/* Her bileşenin hangi proplara ihtiyaç duyduğunu kontrol edin, eğer ihtiyaç varsa ekleyin! */}
+
+      <AramaCubugu/>
+      <Gonderiler gonderiyiBegen = {gonderiyiBegen}  gonderiler =  {gonderiler} begeniSayisi = {likeSayisi}/>
+  
     </div>
   );
 };
