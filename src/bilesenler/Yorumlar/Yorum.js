@@ -3,14 +3,16 @@ import React from 'react';
 
 const Yorum = props => {
   // 🔥 Bu bileşenin parentının aşağıdaki propları düzgün gönderdiğinden emin olun.
-  const { yorum } = props;
+  const {post } = props;
 
   return (
-    <div className='comment-text'>
+    post.comments.map((yorum) => (
+    <div key={yorum.id} className='comment-text'>
       <span className='user'>{yorum.username}</span>
       {' '}
       <span className='comment'>{yorum.text}</span>
-    </div>
+  </div>) )
+    
   );
 };
 

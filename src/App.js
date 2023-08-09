@@ -16,11 +16,12 @@ import "./App.css";
 
 const App = () => {
   const [gonderiler , setGonderiler] = useState (sahteVeri);
-  const [likeSayisi , setLikeSayisi] = useState();
+  const [likeSayisi , setLikeSayisi] = useState(0);
+  const [input, setInput] = useState('');
 
   useEffect(()=> {
     console.log('Gönderiler : ', gonderiler);
-  },[])
+  },[gonderiler])
 
   // Gönderi nesneleri dizisini tutmak için "gonderiler" adlı bir state oluşturun, **sahteVeri'yi yükleyin**.
   // Artık sahteVeri'ye ihtiyacınız olmayacak.
@@ -29,18 +30,19 @@ const gonderiyiBegen = (gonderiID) => {
 
     const newData = [...gonderiler];
 
-    newData.map((post) => (post.id === gonderiID) ?
-  
-    setLikeSayisi((post.likes + 1))
-    :
-    null
-    )
-    
-    setGonderiler(newData);
-    console.log(`${gonderiID} ID'li postun likes sayısı : `, likeSayisi);
+    newData.forEach((post) =>{
+      if (post.id === gonderiID) {
+        post.likes += 1;
+        setLikeSayisi((post.likes))
+      }
+    })
 
+    setGonderiler(newData);
 };
-  
+
+useEffect(() => {
+  console.log(`postun güncel - likes sayısı : `, likeSayisi);
+},[likeSayisi])
 
     
    
@@ -61,8 +63,8 @@ const gonderiyiBegen = (gonderiID) => {
   return (
     <div className="App">
 
-      <AramaCubugu/>
-      <Gonderiler gonderiyiBegen = {gonderiyiBegen}  gonderiler =  {gonderiler} begeniSayisi = {likeSayisi}/>
+      <AramaCubugu setInput={setInput}/>
+      <Gonderiler gonderiyiBegen = {gonderiyiBegen}  gonderiler =  {gonderiler} begeniSayisi = {likeSayisi} deger = {input}/>
   
     </div>
   );
